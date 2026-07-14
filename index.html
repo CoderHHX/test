@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI-Native 优化器研究地图：面向初学者、科研决策者和研究人员的静态研究门户，涵盖技术谱系、最新前沿、电网机会、研究 gaps 与 100 项文献证据库。">
+  <meta name="theme-color" content="#102c46">
+  <title>AI-Native 优化器研究地图</title>
+  <link rel="icon" href="a/4.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="a/1.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
+
+  <header class="site-header" data-header>
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark" aria-hidden="true">∴</span>
+        <span><strong>AI-Native 优化器</strong><small>研究地图</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <span class="sr-only">打开导航</span><span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
+        <a href="#start">快速入门</a>
+        <a href="#map">研究版图</a>
+        <a href="#frontier">最新前沿</a>
+        <a href="#grid">电网专题</a>
+        <a href="#directions">研究路线</a>
+        <a href="#library">文献库</a>
+      </nav>
+      <a class="button button-small header-download" href="d/1.pdf">下载报告</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span>证据更新至 2026-07-14</p>
+          <h1 id="hero-title">AI-Native 优化器<br><em>研究地图</em></h1>
+          <p class="hero-lead">它不是一种“万能 AI 求解器”，而是一组让 AI 参与建模、搜索、候选生成、数值计算、硬件调度和验证的方法。</p>
+          <p class="hero-thesis"><strong>当前最可信的路线：</strong>AI 提出高价值候选，数学求解器修复和界定，独立验证器检查；低置信度时回退传统策略。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#start">5 分钟建立全局认识</a>
+            <a class="button button-ghost" href="#grid">直接查看电网机会</a>
+          </div>
+          <div class="hero-meta" aria-label="研究材料统计">
+            <div><strong>100</strong><span>项核心文献/项目</span></div>
+            <div><strong>7</strong><span>条技术谱系</span></div>
+            <div><strong>15</strong><span>个关键研究 Gap</span></div>
+          </div>
+        </div>
+
+        <div class="system-card" aria-labelledby="system-title">
+          <div class="system-card-head">
+            <span class="status-dot"></span>
+            <p id="system-title">可信混合求解闭环</p>
+            <span class="system-label">推荐范式</span>
+          </div>
+          <ol class="system-flow">
+            <li><span>01</span><div><strong>问题、规则与数据</strong><small>业务语义、数学模型、历史实例</small></div></li>
+            <li class="ai-step"><span>02</span><div><strong>AI 提议与调度</strong><small>生成候选、选参数、筛约束、选硬件</small></div></li>
+            <li><span>03</span><div><strong>数学求解器收口</strong><small>修复、搜索、上下界、精确校正</small></div></li>
+            <li class="verify-step"><span>04</span><div><strong>独立验证与回退</strong><small>可行性、证书、OOD、默认策略</small></div></li>
+          </ol>
+          <p class="system-note">AI 负责利用重复规律；传统优化负责可靠性。两者的接口与验证链，才是研究重点。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="path-strip" aria-labelledby="path-title">
+      <div class="shell">
+        <div class="section-kicker"><span>按目的阅读</span><h2 id="path-title">你现在最想解决什么？</h2></div>
+        <div class="path-grid">
+          <a class="path-card" href="#start"><span class="path-time">约 5 分钟</span><strong>我第一次接触</strong><p>先看懂传统优化器、AI 能插在哪里，以及为什么“快”不等于“可信”。</p><b>开始入门 →</b></a>
+          <a class="path-card" href="#directions"><span class="path-time">约 12 分钟</span><strong>我要判断是否立项</strong><p>比较快速成果、长期壁垒、主要风险与三阶段研究计划。</p><b>查看路线 →</b></a>
+          <a class="path-card" href="#library"><span class="path-time">按需检索</span><strong>我要找论文或开源工作</strong><p>搜索、筛选和排序 100 项文献，追溯原始来源与许可证备注。</p><b>进入证据库 →</b></a>
+          <a class="path-card path-card-accent" href="#grid"><span class="path-time">重点专题</span><strong>我只关心电网</strong><p>从 SCUC/OPF 的通俗解释，直达六个优先研究命题。</p><b>进入电网专题 →</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="start" aria-labelledby="start-title">
+      <div class="shell narrow">
+        <div class="section-heading">
+          <p class="section-index">01 · 快速入门</p>
+          <h2 id="start-title">先用一个电网问题，把概念说清楚</h2>
+          <p>假设调度中心要决定明天每小时开启哪些机组、各发多少电。这类问题既要成本低，也要满足供需平衡、线路安全、备用和启停规则。</p>
+        </div>
+
+        <div class="story-steps" aria-label="机组组合求解示例">
+          <article><span>传统方法</span><h3>数学求解器搜索并证明</h3><p>求解器在大量启停组合中搜索，找到当前最好方案，同时维护理论上下界，判断离最优还有多远。</p></article>
+          <article><span>AI 可以帮助</span><h3>先猜“哪里最值得搜”</h3><p>预测可能生效的约束、给出较好初始方案、选择 presolve 参数，或判断 CPU/GPU 哪条路线更合适。</p></article>
+          <article><span>安全边界</span><h3>最终仍需检查和回退</h3><p>AI 猜错时，求解器补回约束并修复；独立 checker 再验证物理可行性。无法确认时回到默认策略。</p></article>
+        </div>
+
+        <div class="definition-card">
+          <div><span class="definition-label">操作性定义</span><h3>什么是 AI-Native 优化器？</h3></div>
+          <p>在数学规划或组合优化的<strong>建模、算法设计、求解器内部决策、候选解生成、数值迭代、硬件调度、验证和持续维护</strong>中，将可学习模型置于核心闭环，并利用可执行目标或数学约束产生反馈的优化系统。</p>
+        </div>
+
+        <h3 class="subheading">四个最容易混淆的概念</h3>
+        <div class="myth-grid">
+          <article><span>不是</span><strong>Adam / SGD</strong><p>这里研究的是数学规划和组合优化，不是训练神经网络时使用的 optimizer。</p></article>
+          <article><span>不是</span><strong>GPU = AI</strong><p>GPU 求解器是重要底座，但只有可学习模型进入闭环后，才属于 AI-Native 系统。</p></article>
+          <article><span>注意</span><strong>高引用 ≠ 当前最快</strong><p>引用反映历史影响；生产价值还要看端到端时间、尾部失败、许可证和独立复现。</p></article>
+          <article><span>注意</span><strong>有 GitHub ≠ 开源</strong><p>没有明确 LICENSE 的公开仓库，默认只能阅读，不能直接复制、分发或商用。</p></article>
+        </div>
+
+        <div class="concept-row">
+          <div>
+            <p class="mini-label">读论文前先问</p>
+            <h3>它到底证明了什么？</h3>
+          </div>
+          <ul class="check-list">
+            <li>是节点数更少，还是<strong>端到端 wall-clock</strong> 真的更快？</li>
+            <li>换规模、换拓扑、换规则或换 solver 后还能工作吗？</li>
+            <li>训练和标签成本算进总成本了吗？需要运行多少次才能回本？</li>
+            <li>失败时能检测、修复、给出证书或安全回退吗？</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="map" aria-labelledby="map-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div><p class="section-index">02 · 研究版图</p><h2 id="map-title">七条技术谱系，各自解决不同问题</h2></div>
+          <p>成熟度 1/5 代表概念验证，3/5 代表可复现研究系统，5/5 代表跨场景工业基础设施。分数是基于公开证据的综合判断。</p>
+        </div>
+
+        <div class="track-grid">
+          <details class="track-card" open>
+            <summary><span class="track-icon">A</span><div><h3>LLM 自动建模与智能体</h3><p>把自然语言需求变成数学模型和求解代码</p></div><span class="maturity">2.5 / 5</span></summary>
+            <div class="track-body"><p><strong>AI 在哪里：</strong>需求澄清、Build / Revise / Explain、代码生成和审计。</p><p><strong>当前能力：</strong>能处理模板化 LP/MILP，借助 solver 反馈修正语法、可行性和目标值。</p><p><strong>主要缺口：</strong>语义正确性不能仅靠目标值验证；工业模型需要 typed IR、单位检查和反例测试。</p><p><strong>代表工作：</strong>ORLM、OptiMUS、SIRL、StepORLM、OR-Space。</p></div>
+          </details>
+          <details class="track-card">
+            <summary><span class="track-icon">B</span><div><h3>学习增强精确求解器</h3><p>学习 branching、cuts、presolve、LNS 和配置</p></div><span class="maturity high">3.5 / 5</span></summary>
+            <div class="track-body"><p><strong>AI 在哪里：</strong>分支定界/分支割、启发式、变量固定和 solver policy。</p><p><strong>为什么重要：</strong>AI 猜错时可回退默认策略，求解器仍可保留可行性与最优性界，是最接近产业价值的主线。</p><p><strong>主要缺口：</strong>模型开销、跨规模/问题族 OOD、多模块耦合和训练回报。</p><p><strong>代表工作：</strong>Gasse 等 learning-to-branch、Neural Diving、Apollo-MILP、LLM4Branch。</p></div>
+          </details>
+          <details class="track-card">
+            <summary><span class="track-icon">C</span><div><h3>神经组合优化</h3><p>直接构造或改进 TSP、VRP、MIS、调度解</p></div><span class="maturity">3 / 5 · 窄域</span></summary>
+            <div class="track-body"><p><strong>AI 在哪里：</strong>端到端生成离散解，或为搜索提供概率/热图。</p><p><strong>当前能力：</strong>在固定问题分布、批量推理和较窄任务上表现突出。</p><p><strong>主要缺口：</strong>跨规模与结构泛化、经典 baseline 公平性、可行性和最优性证书。</p><p><strong>代表工作：</strong>Attention Model、POMO、DIFUSCO、DeepACO。</p></div>
+          </details>
+          <details class="track-card">
+            <summary><span class="track-icon">D</span><div><h3>生成式求解</h3><p>用 diffusion / flow 生成多个高质量候选</p></div><span class="maturity">2.5 / 5</span></summary>
+            <div class="track-body"><p><strong>AI 在哪里：</strong>生成变量赋值、解分布或 primal-dual 状态。</p><p><strong>机会：</strong>生成多候选，再由 exact solver 修复与认证，兼顾多样性和可靠性。</p><p><strong>主要缺口：</strong>大规模图的 O(n²) 表示、多步网络调用、连续—整数校准和 repair 预算。</p><p><strong>代表工作：</strong>DIFUSCO、FMIP、CycFlow、GFlowNet 系列。</p></div>
+          </details>
+          <details class="track-card">
+            <summary><span class="track-icon">E</span><div><h3>可微优化与 DFL</h3><p>按最终决策质量训练预测模型</p></div><span class="maturity high">3.5 / 5</span></summary>
+            <div class="track-body"><p><strong>AI 在哪里：</strong>把优化器作为网络层，或把下游 regret 写进训练损失。</p><p><strong>适合场景：</strong>能源调度、控制、资源分配和“预测后优化”。</p><p><strong>注意：</strong>可微不等于求解更快；应比较最终决策损失，而不只比较预测误差。</p><p><strong>代表工作：</strong>OptNet、CVXPYlayers、SPO+、PyEPO、DC3。</p></div>
+          </details>
+          <details class="track-card">
+            <summary><span class="track-icon">F</span><div><h3>Learning-to-Optimize</h3><p>学习迭代规则、预条件器和数值 warm start</p></div><span class="maturity">2.5 / 5</span></summary>
+            <div class="track-body"><p><strong>AI 在哪里：</strong>ISTA/IPM/PDHG/Krylov 的更新、状态和预条件。</p><p><strong>机会：</strong>为一族重复数值问题学习更好的初始化或局部策略。</p><p><strong>主要缺口：</strong>病态系统、混合精度、稳定性证明，以及与成熟线性代数库的真实 wall-clock 对比。</p><p><strong>代表工作：</strong>LISTA、L2O、IPM-LSTM、learned preconditioners。</p></div>
+          </details>
+          <details class="track-card">
+            <summary><span class="track-icon">G</span><div><h3>GPU / 加速器原生底座</h3><p>批量、可微和大规模数值求解基础设施</p></div><span class="maturity highest">4 / 5</span></summary>
+            <div class="track-body"><p><strong>它是什么：</strong>GPU LP/QP/锥/NLP 内核，以及适合学习系统调用的开放求解底座。</p><p><strong>为什么关键：</strong>让批量标签生成、solver-in-the-loop 和 CPU/GPU 路由成为可能。</p><p><strong>边界：</strong>GPU 本身不是 AI；必须同容差比较，并报告 crossover、KKT residual 和精度。</p><p><strong>代表资产：</strong>cuPDLPx、MPAX、PDHCG-II、PDCS、MadNLP、ExaModelsPower。</p></div>
+          </details>
+        </div>
+
+        <div class="reliability-panel">
+          <div class="panel-heading"><p class="mini-label">部署优先看可靠性形态</p><h3>同样是 AI 方法，安全边界差异很大</h3></div>
+          <div class="reliability-grid">
+            <article class="reliability-best"><span>最推荐</span><h4>生成 + 修复 + 认证</h4><p>AI 产出候选或部分固定，solver 修复并证明。</p><b>部署潜力：最高</b></article>
+            <article><span>安全增强</span><h4>策略建议 + 默认回退</h4><p>学习 branching、排序或配置，错误时退回经典策略。</p><b>部署潜力：高</b></article>
+            <article><span>特定应用</span><h4>优化层 / 决策损失</h4><p>solver 用于反向传播，与“求解更快”没有必然关系。</p><b>部署潜力：中高</b></article>
+            <article class="reliability-risk"><span>高风险</span><h4>纯神经代理</h4><p>端到端预测 OPF 或组合解，通常没有可检查证书。</p><b>部署潜力：低至中</b></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="frontier" aria-labelledby="frontier-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div><p class="section-index">03 · 最新前沿</p><h2 id="frontier-title">高被引与最新，不是一回事</h2></div>
+          <p>高引用识别历史影响；2025–2026 前沿工作识别新方向。二者都不能直接等同于当前性能或工业成熟度。</p>
+        </div>
+
+        <div class="tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="文献观察视角">
+            <button role="tab" aria-selected="true" aria-controls="impact-panel" id="impact-tab">历史影响力</button>
+            <button role="tab" aria-selected="false" aria-controls="latest-panel" id="latest-tab" tabindex="-1">2025–2026 前沿</button>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="impact-panel" aria-labelledby="impact-tab">
+            <div class="impact-layout">
+              <div class="impact-chart" aria-label="代表性高被引论文引用数，查询日 2026-07-14">
+                <div style="--value:100%"><span>Pointer Networks</span><i></i><b>3,505</b></div>
+                <div style="--value:63%"><span>Learning to Learn</span><i></i><b>2,218</b></div>
+                <div style="--value:59%"><span>LISTA</span><i></i><b>2,058</b></div>
+                <div style="--value:53%"><span>Neural CO with RL</span><i></i><b>1,847</b></div>
+                <div style="--value:52%"><span>ML for CO Survey</span><i></i><b>1,832</b></div>
+                <div style="--value:47%"><span>Attention Model</span><i></i><b>1,648</b></div>
+                <div style="--value:36%"><span>OptNet</span><i></i><b>1,269</b></div>
+                <div style="--value:25%"><span>CVXPYlayers</span><i></i><b>886</b></div>
+              </div>
+              <aside class="reading-note"><h3>如何读引用数</h3><p>Pointer Networks 和 learned optimizer 的引用有相当部分来自 NLP、元学习等邻近领域。</p><p>对求解器工作，生产接口、完整 wall-clock、强基线、独立复现和许可证常比引用数更重要。</p><small>来源：Semantic Scholar canonical citationCount；查询日 2026-07-14，数值会变化。</small></aside>
+            </div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="latest-panel" aria-labelledby="latest-tab" hidden>
+            <div class="frontier-grid">
+              <article><span class="evidence evidence-b">B+</span><p class="venue">ICLR 2026 Poster</p><h3>FMIP</h3><p>联合连续—整数 flow matching 生成 MILP warm start；仍需 solver 修复和认证。</p><a href="https://openreview.net/forum?id=kyvW6S0u3z" rel="noopener" target="_blank">原始来源 ↗</a></article>
+              <article><span class="evidence evidence-b">B+</span><p class="venue">ICML 2026</p><h3>LLM4Branch</h3><p>LLM 生成可执行 branching skeleton，再用零阶方法调参数；跨 solver 泛化仍待验证。</p><a href="https://openreview.net/forum?id=YIzUTHEvG7" rel="noopener" target="_blank">原始来源 ↗</a></article>
+              <article><span class="evidence evidence-a">A / B+</span><p class="venue">ICML 2026</p><h3>Data-driven Lagrangian Relaxation</h3><p>为学习型拉格朗日乘子提供统计理论，与 UC 等分解问题直接相关。</p><a href="https://openreview.net/forum?id=OwLuqetJuB" rel="noopener" target="_blank">原始来源 ↗</a></article>
+              <article><span class="evidence evidence-b">B</span><p class="venue">ICML 2026</p><h3>Draft-and-Audit RL</h3><p>先起草，再按 OR 错误清单审计；两轮审核仍不能单独证明语义正确。</p><a href="https://openreview.net/forum?id=3rzJANFrMp" rel="noopener" target="_blank">原始来源 ↗</a></article>
+              <article><span class="evidence evidence-c">C+</span><p class="venue">2026 预印本</p><h3>Agora-Opt</h3><p>多团队辩论与持久记忆架构有研究价值，但需要冻结记忆、去重和 clean-room 复评。</p><a href="https://arxiv.org/abs/2604.25847" rel="noopener" target="_blank">原始来源 ↗</a></article>
+              <article><span class="evidence evidence-c">C</span><p class="venue">2026 预印本</p><h3>GPU–CPU Unit Commitment</h3><p>揭示 presolve 会改变 CPU/GPU 赢家，强烈支持“实例—算法—硬件联合路由”。</p><a href="https://arxiv.org/abs/2607.03627" rel="noopener" target="_blank">原始来源 ↗</a></article>
+            </div>
+          </div>
+        </div>
+
+        <div class="hotspot-wrap">
+          <div class="panel-heading"><p class="mini-label">2026 真实热区</p><h3>热点正在从单点策略，走向完整求解系统</h3></div>
+          <div class="hotspot-grid">
+            <article><span>01</span><h4>表示与泛化</h4><p>MILP foundation representation、对称性、真实语义、多最优解和结构 OOD。</p></article>
+            <article><span>02</span><h4>求解闭环与可信性</h4><p>solver-in-the-loop RL、预测—修正—认证、校准、回退和 bounded degradation。</p></article>
+            <article><span>03</span><h4>生成与算法发现</h4><p>连续—整数 flow/diffusion、LLM 发现启发式、portfolio 和 held-out evaluator。</p></article>
+            <article><span>04</span><h4>系统与硬件编排</h4><p>presolve、cuts、LNS、restart、精度、预算和 CPU/GPU 的联合控制。</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section grid-section" id="grid" aria-labelledby="grid-title">
+      <div class="shell">
+        <div class="section-heading grid-heading">
+          <p class="section-index">04 · 电网专题</p>
+          <h2 id="grid-title">电网为什么是 AI-Native 优化的理想试验场？</h2>
+          <p>问题每天重复求解，物理规律相对稳定，安全约束明确，结果可以独立检查；同时又包含离散、连续、非凸、多时段和不确定性。</p>
+        </div>
+
+        <div class="grid-glossary" aria-label="三个核心电网问题">
+          <article><span>SCUC</span><h3>安全约束机组组合</h3><p>决定未来各时段哪些机组启停、各发多少电，并满足备用与线路安全。</p></article>
+          <article><span>OPF</span><h3>最优潮流</h3><p>在电网物理约束下分配发电和潮流，使成本、损耗或其他目标最优。</p></article>
+          <article><span>SCOPF</span><h3>安全约束最优潮流</h3><p>不仅满足正常运行，还要考虑线路或设备故障后的安全状态。</p></article>
+        </div>
+
+        <div class="grid-architecture">
+          <div class="architecture-copy">
+            <p class="mini-label">建议系统架构</p>
+            <h3>从规则和数据，到可审计的运行结果</h3>
+            <p>真正有壁垒的不是一个预测模型，而是一条把语义、数学、求解、物理验证和运行反馈连接起来的链。</p>
+            <ul class="check-list compact">
+              <li>Typed Grid Optimization IR 表达单位、元件、时间索引与安全规则；</li>
+              <li>独立 verifier 检查守恒、边界、反例和模型修改；</li>
+              <li>AI 层做路由、筛选、warm start、LNS 或候选生成；</li>
+              <li>可靠后端负责收口、证书与失败回退。</li>
+            </ul>
+          </div>
+          <div class="architecture-flow" role="img" aria-label="电网 AI-Native 优化系统流程：规则和数据，电网建模模型，Typed IR，独立验证器，学习增强层，可靠求解后端，证书和闭环压力测试">
+            <div><b>规则 / 文档 / 历史模型</b><small>市场、设备、时序与场景</small></div><i>↓</i>
+            <div class="accent"><b>电网建模模型 + Typed IR</b><small>单位、元件、N-1、时间索引</small></div><i>↓</i>
+            <div><b>独立语义 / 物理 verifier</b><small>守恒、边界、反例与 checker</small></div><i>↓</i>
+            <div class="accent"><b>学习增强层</b><small>路由、筛选、warm start、LNS</small></div><i>↓</i>
+            <div><b>可靠求解器 + 安全回退</b><small>SCIP / HiGHS / UC.jl / GPU solver</small></div>
+          </div>
+        </div>
+
+        <div class="evidence-split">
+          <div class="evidence-column positive">
+            <h3><span>已有证据</span>目前已经能做什么</h3>
+            <ul>
+              <li>OPF 神经代理、可微 correction 和 preventive calibration；</li>
+              <li>SCUC/UC inactive constraint screening 与补回；</li>
+              <li>primal 或 primal-dual ACOPF warm start；</li>
+              <li>PGLearn、ML4OPF、GridFM DataKit 等研究数据底座；</li>
+              <li>UnitCommitment.jl、PowerModels、Grid2Op 等开放验证环境。</li>
+            </ul>
+          </div>
+          <div class="evidence-column caution">
+            <h3><span>尚未出现</span>不能过度宣传什么</h3>
+            <ul>
+              <li>跨运营商、跨拓扑稳定泛化的端到端 AI SCUC/SCOPF；</li>
+              <li>同时覆盖多时段、储能、备用、N-1/N-k 和不确定性的公开系统；</li>
+              <li>兼具可行性、下界、失败回退和完整生命周期的通用 AI 内核；</li>
+              <li>公开数据、代码、许可证与统一硬件复现全部齐备的成熟方案。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-topics">
+          <div class="panel-heading"><p class="mini-label">六个优先研究命题</p><h3>从低风险、可验证的问题开始</h3></div>
+          <ol class="topic-list">
+            <li><span>01</span><div><h4>可认证 SCUC 线路/事故约束筛选</h4><p>预测 inactive constraints；误删时由 lazy constraint generation 补回，最终用独立 checker 认证。</p></div><b>S 级推荐</b></li>
+            <li><span>02</span><div><h4>完整 primal-dual ACOPF warm start</h4><p>学习 primal、dual、slack、barrier state 和不确定性，并与 corrected warm-start baseline 公平比较。</p></div><b>长期价值高</b></li>
+            <li><span>03</span><div><h4>CPU / GPU / 算法 / presolve 自适应路由</h4><p>直接优化端到端时间和尾部风险，保留原始问题和求解证书。</p></div><b>S 级推荐</b></li>
+            <li><span>04</span><div><h4>拓扑图 × 时间图的连续—整数生成</h4><p>联合生成 commitment、dispatch、flow 和 reserve，再由 exact solver correction。</p></div><b>3–5 年主线</b></li>
+            <li><span>05</span><div><h4>Decision-focused 随机调度</h4><p>按 UC/ED/储能/CVaR/备用的最终 regret 训练预测，而不只追求负荷预测误差。</p></div><b>快速切入</b></li>
+            <li><span>06</span><div><h4>Grid-Space / solver-trace benchmark</h4><p>共同开放文档、数据、模型、修改请求、traces、证书和 OOD split。</p></div><b>平台壁垒</b></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="directions" aria-labelledby="directions-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div><p class="section-index">05 · 研究路线</p><h2 id="directions-title">哪些方向最快拿到结果，哪些值得长期投入？</h2></div>
+          <p>横轴表示获得第一个可信结果所需时间，纵轴表示长期学术与工程壁垒。位置是研究规划判断，不是对论文价值的排名。</p>
+        </div>
+
+        <div class="portfolio-matrix" aria-label="研究方向：见效速度与长期壁垒矩阵">
+          <div class="axis axis-y"><span>长期壁垒更高</span></div>
+          <div class="matrix-cell fast-deep"><h3>优先主线：快且可积累</h3><span>SCUC 可认证筛选</span><span>CPU/GPU solver 路由</span><span>GridBench + solver traces</span><span>安全 partial fixing / warm start</span></div>
+          <div class="matrix-cell slow-deep"><h3>长期攻坚：形成领域壁垒</h3><span>Grid Optimization Foundation Model</span><span>连续—整数 SCUC/SCOPF 生成</span><span>可信模型编译器</span><span>随机多时段 AC-SCUC</span></div>
+          <div class="matrix-cell fast-light"><h3>快速论文：适合作为起点</h3><span>DFL + ED / DCOPF / 储能</span><span>批量 GPU DCOPF / QP</span><span>solver 配置 / presolve</span></div>
+          <div class="matrix-cell slow-risk"><h3>谨慎投入：先证明必要性</h3><span>无回退的端到端神经求解器</span><span>只在同分布小实例评测的大模型</span><span>无 clean-room evaluator 的算法发现</span></div>
+          <div class="axis axis-x"><span>更快获得可信结果</span><span>需要更长期投入</span></div>
+        </div>
+
+        <div class="three-lines">
+          <div class="panel-heading"><p class="mini-label">如果只能做三条线</p><h3>让平台、近程和远程共享同一套资产</h3></div>
+          <div class="three-line-grid">
+            <article><span>平台线</span><h4>GridBench / Grid-Space</h4><p>数据、solver traces、OOD split、independent checker 和许可证治理。</p><b>目标：建立话语权</b></article>
+            <article><span>近程线</span><h4>安全增强 SCUC</h4><p>约束筛选、solver 配置、CPU/GPU 路由和置信 warm start。</p><b>目标：论文 + 工程收益</b></article>
+            <article><span>远程线</span><h4>结构化生成 + 精确校正</h4><p>拓扑/时序感知的连续—整数生成、可行修复和证书。</p><b>目标：3–5 年算法壁垒</b></article>
+          </div>
+        </div>
+
+        <div class="roadmap">
+          <div class="panel-heading"><p class="mini-label">建议的三阶段计划</p><h3>从可信基准开始，而不是从“大模型 demo”开始</h3></div>
+          <ol class="timeline">
+            <li><span>0–9 个月</span><div><h4>阶段 I · 建立可信基准和快速成果</h4><p>固定公开案例与 solver 版本，采集 traces，发布 topology/time/extreme OOD split；完成 CPU/GPU 路由和 constraint screening 基线。</p><b>Go / No-Go：</b><p>若简单 LightGBM/RF 已达到 95% oracle 收益，优先研究可靠部署；若 p95 退化不可控，先做拒答与回退。</p></div></li>
+            <li><span>9–24 个月</span><div><h4>阶段 II · 形成算法主线</h4><p>SCUC 置信变量固定与 LNS、ACOPF primal-dual warm start、随机 DFL、typed IR 和 multi-policy orchestration。</p><b>Go / No-Go：</b><p>只有端到端显著降低 shifted geometric mean、timeout 和 p95/p99，且训练投资可回收，才扩大模型。</p></div></li>
+            <li><span>24–60 个月</span><div><h4>阶段 III · 建立领域级系统</h4><p>跨 OPF/SCUC/SCOPF 表示，连续—整数—对偶联合生成，多 GPU 分解，闭环运行与可信审计。</p><b>终局目标：</b><p>形成可审计、复现、回退和持续改进的 AI-native optimization stack。</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="gaps" aria-labelledby="gaps-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div><p class="section-index">06 · 研究 Gaps</p><h2 id="gaps-title">可以形成博士课题的 15 个问题</h2></div>
+          <p>默认只显示一句话问题。展开后看“为什么难”与可能的研究切口，避免一上来被技术细节淹没。</p>
+        </div>
+
+        <div class="gap-groups">
+          <section><h3>泛化与表示</h3>
+            <details><summary><b>Gap 1</b> 结构性 OOD 泛化</summary><p>同一生成器下更大规模，不等于面对新拓扑、新规则或新 solver 仍有效。需要 topology/time/extreme-event/rule OOD 与拒答机制。</p></details>
+            <details><summary><b>Gap 6</b> 多最优解、退化与数值鲁棒性</summary><p>单一标签会制造监督冲突；病态 KKT、大 M 和尺度问题会同时破坏学习、求导和求解。</p></details>
+            <details><summary><b>Gap 8</b> Foundation model 的语义真实性</summary><p>MPS 矩阵缺少设备类型、单位、规则文本和风险偏好，需要结构、文本、trace 与 expert tests 对齐。</p></details>
+          </section>
+          <section><h3>可信性与评测</h3>
+            <details><summary><b>Gap 2</b> 实验协议不可比</summary><p>solver、硬件、线程、容差和调参预算不同；只报节点或 kernel time 会掩盖真实端到端成本。</p></details>
+            <details><summary><b>Gap 5</b> 可行性、下界与证书</summary><p>纯神经解通常没有 lower bound、infeasibility proof 或 optimality certificate；平均 gap 不能代替安全结论。</p></details>
+            <details><summary><b>Gap 10</b> Bounded degradation 缺失</summary><p>需要 OOD detector、confidence calibration、默认回退、shadow mode、p99 退化与故障审计。</p></details>
+            <details><summary><b>Gap 12</b> 算法发现的统计有效性</summary><p>在同一 benchmark 自适应搜索数千次会产生 selection bias，需要 family-held-out、嵌套验证和统计修正。</p></details>
+          </section>
+          <section><h3>求解系统</h3>
+            <details><summary><b>Gap 3</b> Solver 模块耦合与因果归因</summary><p>更好 branching 可能破坏 cuts、heuristics 与 restart 协同；需要反事实消融和多模块联合控制。</p></details>
+            <details><summary><b>Gap 4</b> 训练投资回报未量化</summary><p>应报告标签生成的 CPU/GPU-hours，以及需要多少次生产求解才能回本。</p></details>
+            <details><summary><b>Gap 7</b> 生成式求解的扩展瓶颈</summary><p>O(n²) heatmap、多步调用、constraint guidance 和 repair 预算限制了超大实例。</p></details>
+            <details><summary><b>Gap 13</b> 高成本、噪声 evaluator</summary><p>真实数字孪生一次可能耗时数小时，需要多保真 surrogate、主动预算分配和置信界。</p></details>
+          </section>
+          <section><h3>语义、治理与电网</h3>
+            <details><summary><b>Gap 9</b> 随机、多阶段与风险优化不足</summary><p>真实电网需要 stochastic/robust/chance/CVaR/rolling horizon，而当前 benchmark 多为静态确定性。</p></details>
+            <details><summary><b>Gap 11</b> 自动建模的语义验证</summary><p>目标值相同也可能模型语义错误，需要 typed IR、量纲检查、metamorphic tests 和反例生成。</p></details>
+            <details><summary><b>Gap 14</b> 开源、数据与供应链治理</summary><p>无 LICENSE、NC 数据、闭源 solver、依赖污染和 LLM 代码执行沙箱会直接阻碍长期平台。</p></details>
+            <details><summary><b>Gap 15</b> 静态优化与闭环控制割裂</summary><p>需要统一 day-ahead schedule、real-time correction 与安全事件的评测闭环。</p></details>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ecosystem" aria-labelledby="ecosystem-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div><p class="section-index">07 · 团队与生态</p><h2 id="ecosystem-title">应该持续跟踪哪些团队和开放资产？</h2></div>
+          <p>这里按研究谱系组织，不做“名人排行榜”。团队卡强调可复用资产和客观边界。</p>
+        </div>
+
+        <div class="team-grid">
+          <article><span>精确求解器学习</span><h3>Mila / Polytechnique Montréal / ds4dm</h3><p>Andrea Lodi、Yoshua Bengio、Maxime Gasse 等；GNN branching、hybrid policy、ML4CO。</p><small>可借鉴：Ecole、学习型 solver 实验范式。</small></article>
+          <article><span>工业 MILP 与算法发现</span><h3>Google DeepMind / Google Research</h3><p>Neural Diving、learned optimizer、FunSearch、AlphaEvolve 等。</p><small>注意：部分生产系统或搜索基础设施不完整开放。</small></article>
+          <article><span>Foundation model / solver policy</span><h3>MIT LIDS/CEE 与 Microsoft Research</h3><p>Cathy Wu、Sirui Li、Ishai Menache 等；separator/configuration、MILP foundation model 与 agentic OR。</p><small>与电网、系统和强化学习交叉紧密。</small></article>
+          <article><span>求解器 + OR 大模型</span><h3>上海交大—杉数合作网络</h3><p>葛冬冬、叶荫宇、王梦迪、Qi Huangfu、Hongpei Li 等；COPT、GPU 优化、ORLM、SIRL、FMIP。</p><small>优势是链条完整；需关注闭源依赖、许可证和 clean-room 复现。</small></article>
+          <article><span>可微优化 / DFL</span><h3>CMU / Stanford / Columbia</h3><p>J. Zico Kolter、Priya Donti、Stephen Boyd、Akshay Agrawal、Adam Elmachtoub 等。</p><small>代表资产：OptNet、CVXPYlayers、DC3、SPO+。</small></article>
+          <article><span>电网开放基准</span><h3>AI4OPT / LANL / Argonne / RTE / LF Energy</h3><p>PGLearn、PowerModels、PGLib、UnitCommitment.jl、Grid2Op、GridFM DataKit。</p><small>适合作为共同数据、checker 和闭环压力测试底座。</small></article>
+        </div>
+
+        <div class="stack-table table-wrap" tabindex="0" aria-label="推荐开放技术栈，可横向滚动">
+          <table>
+            <caption>推荐开放技术栈：先核对代码、数据和模型各自的许可证</caption>
+            <thead><tr><th>目标</th><th>首选开放栈</th><th>使用建议</th></tr></thead>
+            <tbody>
+              <tr><td>Learning-augmented MILP</td><td>SCIP + PySCIPOpt + Ecole + HiGHS</td><td>便于 callback、trace 和 exact fallback</td></tr>
+              <tr><td>OR 自动建模</td><td>ORLM + OptMATH + OptiMUS</td><td>独立核对模型、权重和数据许可证</td></tr>
+              <tr><td>可微优化 / DFL</td><td>CVXPYlayers + PyEPO + MPAX</td><td>从 LP/QP/DCOPF 开始最稳妥</td></tr>
+              <tr><td>SCUC</td><td>UnitCommitment.jl + PGLIB-UC + HiGHS</td><td>独立 checker 适合安全研究</td></tr>
+              <tr><td>OPF 数据与代理</td><td>PGLearn + ML4OPF + GridFM DataKit</td><td>建立 topology/time/extreme OOD split</td></tr>
+              <tr><td>GPU LP/QP/锥</td><td>cuPDLPx + MPAX + PDHCG-II + PDCS</td><td>同容差、同硬件比较完整 wall-clock</td></tr>
+              <tr><td>GPU ACOPF</td><td>PowerModels + ExaModelsPower + MadNLP</td><td>明确局部最优性并记录 KKT residual</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="license-warning"><strong>许可证提醒</strong><p>GitHub 可访问不等于可以复制或商用。代码许可证不自动覆盖训练数据、模型权重和商业 solver；NC 数据也不适合未经授权的商业复用。</p></div>
+      </div>
+    </section>
+
+    <section class="section library-section" id="library" aria-labelledby="library-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div><p class="section-index">08 · 文献证据库</p><h2 id="library-title">搜索与筛选 100 项文献、项目和开放资产</h2></div>
+          <p>这是面向 AI-Native 优化与电网方向的策展式证据矩阵，不是全领域穷举样本。条目数量不能直接解释为研究热度。</p>
+        </div>
+
+        <form class="library-controls" data-library-form>
+          <div class="search-field">
+            <label for="paper-search">搜索标题、贡献、方向或 venue</label>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg><input id="paper-search" type="search" placeholder="例如：branching、OPF、LLM、warm start…" autocomplete="off" data-paper-search><kbd>/</kbd></div>
+          </div>
+          <div class="filter-grid">
+            <label>研究方向<select data-filter="track"><option value="all">全部方向</option></select></label>
+            <label>年份<select data-filter="year"><option value="all">全部年份</option><option value="2025+">2025–2026 前沿</option><option value="2021-2024">2021–2024</option><option value="-2020">2020 及以前</option></select></label>
+            <label>证据等级<select data-filter="evidence"><option value="all">全部等级</option><option value="A">A / A+ 强证据</option><option value="B">B / B+ 前沿证据</option><option value="C">C / C+ 探索性证据</option></select></label>
+            <label>开放状态<select data-filter="openSource"><option value="all">全部状态</option><option value="licensed">许可证明确</option><option value="research">有研究资产，需核查</option><option value="unclear">许可证不清</option><option value="closed">闭源或无实现</option></select></label>
+            <label>电网相关<select data-filter="grid"><option value="all">全部条目</option><option value="direct">直接研究电网</option><option value="transfer">可迁移到电网</option></select></label>
+            <label>排序<select data-sort><option value="recommended">编辑推荐</option><option value="newest">年份：最新优先</option><option value="evidence">证据：较强优先</option><option value="title">标题：A–Z</option></select></label>
+          </div>
+          <div class="quick-filters" aria-label="快捷筛选">
+            <button type="button" data-preset="featured">建议精读 20 项</button>
+            <button type="button" data-preset="frontier">只看 2025–2026</button>
+            <button type="button" data-preset="grid">直接电网工作</button>
+            <button type="button" data-preset="licensed">许可证明确</button>
+            <button type="reset">清除筛选</button>
+          </div>
+        </form>
+
+        <div class="library-status" aria-live="polite"><p data-result-count>正在载入文献…</p><p>引用数未结构化进入矩阵，因此不提供“按引用排序”，避免制造虚假精度。</p></div>
+        <div class="paper-grid" data-paper-grid></div>
+        <div class="library-more"><button class="button button-ghost dark" type="button" data-load-more hidden>显示更多</button></div>
+        <noscript><div class="noscript-note">文献筛选需要 JavaScript。你仍可<a href="d/2.csv">下载完整 CSV 矩阵</a>或阅读<a href="d/1.pdf">正式报告</a>。</div></noscript>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="methods" aria-labelledby="methods-title">
+      <div class="shell narrow">
+        <div class="section-heading">
+          <p class="section-index">09 · 如何保证严谨</p>
+          <h2 id="methods-title">证据等级衡量“能否据此投资和复用”</h2>
+          <p>它不等同于学术新颖性，也不表示 A+ 论文一定比 C 论文更有创造力。</p>
+        </div>
+        <div class="grade-grid">
+          <article><span class="evidence evidence-a">A+</span><h3>强证据</h3><p>正式同行评审；官方代码/数据可用；多数据集、强基线或独立评测。</p></article>
+          <article><span class="evidence evidence-a">A</span><h3>可靠证据</h3><p>正式同行评审、证据充分，但公开资产不完整或任务范围较窄。</p></article>
+          <article><span class="evidence evidence-b">B / B+</span><h3>前沿证据</h3><p>已接收或高质量预印本，已有技术材料，但复现、扩展或许可证仍有缺口。</p></article>
+          <article><span class="evidence evidence-c">C / C+</span><h3>探索性证据</h3><p>预印本、白皮书或新系统；可跟踪和复现，不宜直接当作工业结论。</p></article>
+        </div>
+        <details class="method-details">
+          <summary>查看本调研的检索与纳入标准</summary>
+          <div><p>检索覆盖 arXiv、OpenReview、PMLR、NeurIPS/ICLR/ICML/AAAI proceedings、INFORMS 期刊、Nature、官方项目页、GitHub/Hugging Face 与 Semantic Scholar。</p><p>纳入对建模、solver policy、候选解、优化层、数值迭代或硬件路由有实质贡献的工作；对玩具实验、弱 baseline、状态不清和无许可证却宣称开源的工作降权。</p><p>2026 顶会状态按 OpenReview 最终 decision 认定；预印本不写成正式发表。所有状态截止 2026-07-14。</p></div>
+        </details>
+        <div class="download-panel">
+          <div><p class="mini-label">下载与复用</p><h3>需要完整细节或离线阅读？</h3><p>PDF 包含完整论证、引用结构、团队地图、实验协议和风险清单；CSV 可继续做内部标注与选题分析。</p></div>
+          <div><a class="button button-primary" href="d/1.pdf">下载 PDF 报告</a><a class="button button-ghost dark" href="d/2.csv">下载文献矩阵</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="glossary" aria-labelledby="glossary-title">
+      <div class="shell narrow">
+        <div class="section-heading">
+          <p class="section-index">10 · 初学者术语表</p>
+          <h2 id="glossary-title">不需要先学完一本运筹学教材</h2>
+          <p>先理解这些词在求解流程里“做什么”。需要精确定义时，再回到论文与教材。</p>
+        </div>
+        <div class="glossary-grid">
+          <details open><summary>预处理 · Presolve</summary><p>正式搜索前删除冗余变量和约束、收紧边界，先把问题变小。它经常决定 CPU/GPU 哪个更快。</p></details>
+          <details><summary>热启动 · Warm start</summary><p>先给求解器一个较好的初始解或内部状态，减少从零搜索。对 IPM，还可能包含 dual、slack 和 barrier state。</p></details>
+          <details><summary>分支定界 · Branch-and-bound</summary><p>把整数问题拆成子问题，并用上下界排除不可能更优的分支。AI 可以帮助决定先分哪个变量、先搜哪边。</p></details>
+          <details><summary>割平面 · Cutting plane</summary><p>添加不会排除合法整数解、但能排除松弛假解的约束，让下界更紧、搜索树更小。</p></details>
+          <details><summary>最优性间隙 · Optimality gap</summary><p>当前最好可行解与理论最优界之间的距离。间隙小表示“已经知道离最优不远”。</p></details>
+          <details><summary>证书 · Certificate</summary><p>可被程序独立检查的证据，例如方案可行、问题无解，或最优性间隙不超过某个值。</p></details>
+          <details><summary>分布外 · OOD</summary><p>新问题的规模、拓扑、规则或数据分布超出训练经验。平均效果好但 OOD 崩溃，是当前核心风险。</p></details>
+          <details><summary>决策聚焦学习 · DFL</summary><p>按最终决策损失训练预测模型，而不是只追求预测值准确。例如负荷误差相同，导致的调度成本可能完全不同。</p></details>
+          <details><summary>原始—对偶 · Primal–dual</summary><p>Primal 表示原问题的决策；dual 提供约束价格和理论界。一起学习往往比只猜 primal 更适合可靠 warm start。</p></details>
+          <details><summary>独立 Checker</summary><p>不信任 AI 或主求解程序的内部声明，使用另一套简单、明确的规则重新检查可行性和证书。</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div><a class="brand footer-brand" href="#top"><span class="brand-mark">∴</span><span><strong>AI-Native 优化器</strong><small>研究地图</small></span></a><p>面向科研决策、博士选题和电网优化预研的静态研究门户。</p></div>
+      <div><h2>快速入口</h2><a href="#start">5 分钟入门</a><a href="#grid">电网专题</a><a href="#directions">研究路线</a><a href="#library">文献证据库</a></div>
+      <div><h2>材料下载</h2><a href="d/1.pdf">PDF 报告</a><a href="d/2.csv">100 项文献矩阵</a></div>
+      <div class="footer-note"><h2>研究诚信说明</h2><p>预印本、许可证不清、闭源依赖和潜在评测污染均已降级标注。论文中的速度、准确率和 gap 只在原作者实验条件下成立。</p></div>
+    </div>
+    <div class="shell footer-bottom"><span>证据截止：2026-07-14</span><span>纯静态站点 · 无外部脚本、字体或追踪器</span></div>
+  </footer>
+
+  <button class="back-top" type="button" aria-label="返回页面顶部" data-back-top>↑</button>
+  <script src="a/3.js"></script>
+  <script src="a/2.js"></script>
+</body>
+</html>
