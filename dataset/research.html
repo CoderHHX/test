@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>大语言模型辅助电力系统优化｜技术路线与实验设计</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="返回数据地图">
+      <span>L4P</span>
+      <strong>LLM4PowerOpt</strong>
+    </a>
+    <nav class="header-nav" aria-label="页面导航">
+      <a href="index.html">数据资源</a>
+      <a href="index.html#examples">样例解析</a>
+      <a class="is-active" href="research.html">研究设计</a>
+    </nav>
+  </header>
+
+  <main id="top" class="research-main">
+    <section class="research-intro">
+      <div class="section-number">研究路线与实验设计 / 2026-07-20</div>
+      <h1>大语言模型辅助电力系统优化的技术路线与实验设计</h1>
+      <p>公开电网数据构成可复用的研究基础，但 LLM 对数值求解过程的增量价值仍需通过严格对照验证。建议将三类数据对齐至统一、可执行、可比较且可复验的实验流水线。</p>
+      <div class="research-verdict">
+        <span>近期研究主线</span>
+        <strong>完成 RTS-GMLC 数据接入与无 LLM 正式实验矩阵，同时复现两项公开的大语言模型电力优化基线。</strong>
+        <p>正式矩阵用于评估冲突诊断任务是否存在可利用的策略空间；公开基线用于校准数据、任务定义与评价协议。两者共享统一的求解器内核与验证器。</p>
+      </div>
+    </section>
+
+    <section class="research-section">
+      <header class="research-section-head"><span>01</span><div><h2>统一数据与验证基础设施</h2><p>建立同时表征电网实例、任务定义、求解轨迹与验证结果的标准化数据链。</p></div></header>
+      <div class="data-stack" aria-label="统一数据链">
+        <div><b>电网实例</b><span>母线、机组、线路、负荷、备用、故障</span><code>grid_instance</code></div>
+        <i aria-hidden="true">→</i>
+        <div><b>任务描述</b><span>自然语言修改、求解目标、允许动作</span><code>task_spec</code></div>
+        <i aria-hidden="true">→</i>
+        <div><b>求解轨迹</b><span>模型、参数、日志、中间反馈、耗时</span><code>solver_trace</code></div>
+        <i aria-hidden="true">→</i>
+        <div><b>可验证结果</b><span>解、不可行证书、物理复验、失败原因</span><code>verifier_result</code></div>
+      </div>
+
+      <div class="schema-panel">
+        <div>
+          <span>统一样本模式</span>
+          <h3>跨来源数据的标准化实验记录</h3>
+          <p>该模式将 ProOPF 自然语言任务、UnitCommitment.jl JSON、RTS-GMLC CSV 与求解器日志统一组织，用于训练、比较与可复现性审计。</p>
+        </div>
+        <pre><code>{
+  "grid_instance": { "topology": "...", "time_series": "..." },
+  "task_spec": { "request": "...", "allowed_actions": ["..."] },
+  "solver_input": { "model": "...", "config": "..." },
+  "solver_trace": [ { "step": 1, "feedback": "..." } ],
+  "candidate_output": { "solution_or_certificate": "..." },
+  "verifier_result": { "valid": true, "violations": [] },
+  "llm_trace": { "model": "...", "latency_ms": 0, "tokens": 0 }
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="research-section">
+      <header class="research-section-head"><span>02</span><div><h2>公开基线复现与实验校准</h2><p>优先复现代表性公开工作，以校准工具链、评价指标与任务难度。</p></div></header>
+      <div class="priority-table">
+        <div class="priority-head"><span>顺序</span><span>数据与任务</span><span>要回答的问题</span><span>完成标准</span></div>
+        <article><b>1</b><div><strong>LLM_PowerSystems 小型经济调度</strong><p>5 单元级代码样例</p></div><div>API、prompt、约束检查、Gurobi/HiGHS 对照能否端到端运行？</div><div><span class="status open">1–2 天</span><p>固定随机种子，记录 LLM 延迟与约束违规。</p></div></article>
+        <article><b>2</b><div><strong>ProOPF-B</strong><p>Level 1 基础复现；Level 3/4 扩展验证</p></div><div>现有“执行成功 + 目标值”评价在自然语言模型修订任务中能否识别语义错误？</div><div><span class="status reproducible">3–5 天</span><p>至少复现一组公开结果，并增加独立约束检查。</p></div></article>
+        <article><b>3</b><div><strong>UnitCommitment.jl + RTS-GMLC</strong><p>当前 21 套网架与独立时序源</p></div><div>冲突提取策略是否有足够大、随实例变化的性能差距？</div><div><span class="status partial">当前主线</span><p>完成预注册 10×3 矩阵，不使用 LLM。</p></div></article>
+      </div>
+    </section>
+
+    <section class="research-section">
+      <header class="research-section-head"><span>03</span><div><h2>候选研究方向与优先级</h2><p>每项候选方向均需与静态规则、轻量学习方法及调优后的数值求解器进行系统比较。</p></div></header>
+      <div class="direction-grid">
+        <article class="recommended">
+          <div class="direction-rank">A</div>
+          <div><span>优先研究方向</span><h3>模型修订与隐藏验证</h3></div>
+          <p>由 LLM 根据自然语言修订 OPF/UC 模型，并利用未向 LLM 暴露的反事实场景与物理 checker 识别“可执行但语义不一致”的假成功。</p>
+          <dl><div><dt>数据</dt><dd>ProOPF + PGLib-OPF + RTS-GMLC</dd></div><div><dt>核心指标</dt><dd>false-success rate、隐藏测试通过率</dd></div><div><dt>主要风险</dt><dd>基础假成功率过低，或隐藏测试缺乏方法区分度</dd></div></dl>
+        </article>
+        <article>
+          <div class="direction-rank">B</div>
+          <div><span>当前验证方向</span><h3>冲突诊断与证书压缩</h3></div>
+          <p>AI 负责选择检查时间窗、约束族或提取配置；求解器负责生成并复验不可行证书，LLM 不参与安全约束松弛决策。</p>
+          <dl><div><dt>数据</dt><dd>UnitCommitment.jl + RTS-GMLC</dd></div><div><dt>核心指标</dt><dd>证书大小、求解次数、总时间、跨网架迁移</dd></div><div><dt>主要风险</dt><dd>单一静态策略已接近最优，或原生 IIS 提取开销不足</dd></div></dl>
+        </article>
+        <article>
+          <div class="direction-rank">C</div>
+          <div><span>第二阶段</span><h3>参数选择与暖启动</h3></div>
+          <p>根据实例特征选择 MIP 参数、变量固定或上一时刻解的迁移方式；求解器始终保留最终可行性与最优性证明。</p>
+          <dl><div><dt>数据</dt><dd>大量同分布 UC/SCUC 时序实例</dd></div><div><dt>核心指标</dt><dd>端到端墙钟时间、最优间隙、失败回退率</dd></div><div><dt>主要风险</dt><dd>轻量模型已达到同等效果，LLM 推理开销无法摊销</dd></div></dl>
+        </article>
+        <article class="not-first">
+          <div class="direction-rank">D</div>
+          <div><span>非首篇优先方向</span><h3>LLM 直接生成调度方案</h3></div>
+          <p>由 LLM 直接生成机组启停、出力或潮流结果。该方向具有较强展示性，但在硬约束满足、大规模扩展及商业求解器对照方面风险较高。</p>
+          <dl><div><dt>数据</dt><dd>PowerGraph-LLM、经济调度小算例</dd></div><div><dt>核心指标</dt><dd>可行率、最优差距、推理成本</dd></div><div><dt>主要风险</dt><dd>安全性差、可扩展性弱、baseline 强</dd></div></dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="research-section">
+      <header class="research-section-head"><span>04</span><div><h2>统一对照体系与证据标准</h2><p>所有候选方向采用一致的对照层级、成本核算与统计标准，以识别 LLM 相对于传统方法的独立增量。</p></div></header>
+      <div class="evidence-ladder">
+        <div><b>0</b><strong>求解器基线</strong><span>默认配置 + 调优配置</span></div>
+        <div><b>1</b><strong>固定规则</strong><span>人工启发式、随机策略</span></div>
+        <div><b>2</b><strong>轻量学习器</strong><span>LightGBM / bandit / 小策略网络</span></div>
+        <div><b>3</b><strong>通用 LLM</strong><span>计入 API 延迟、token 与失败</span></div>
+        <div><b>4</b><strong>Skill learning</strong><span>仅在 LLM 确有增量后加入</span></div>
+      </div>
+      <div class="gate-note">
+        <strong>SkillOpt 仅在基础增量证据成立后纳入。</strong>
+        <p>需依次证明任务具有非平凡难度、最优策略具有实例条件性、中间反馈具有决策价值，且 LLM 优于轻量学习方法；在此基础上，validation-gated skill learning 才构成可辨识的方法贡献。</p>
+      </div>
+    </section>
+
+    <section class="research-section">
+      <header class="research-section-head"><span>05</span><div><h2>近期实施计划与阶段闸门</h2><p>将数据建设、基线复现与论文决策组织为具有明确交付物和终止条件的顺序阶段。</p></div></header>
+      <ol class="execution-list">
+        <li><b>数据接入与治理</b><span>完成 RTS-GMLC 转换、admission 检查和语义覆盖；整理三类数据的下载清单与许可证。</span><small>交付：统一数据目录 + provenance 清单</small></li>
+        <li><b>预注册裁决实验</b><span>完成冲突提取 10×3 正式矩阵，评估效应量、实例条件性与可摊销计算时间。</span><small>交付：GO/NO-GO 报告</small></li>
+        <li><b>公开 LLM 基线复现</b><span>以 LLM_PowerSystems 验证最小闭环，以 ProOPF-B 复现自然语言建模 benchmark。</span><small>交付：可重复运行的 baseline harness</small></li>
+        <li><b>首篇方向决策</b><span>若冲突诊断的策略改进空间得到复现，则继续 GridConflictBench；否则启动“模型修订与隐藏验证”先导实验。</span><small>交付：冻结后的论文问题、指标与实验矩阵</small></li>
+        <li><b>策略学习（条件阶段）</b><span>先评估 LightGBM，再引入通用 LLM；仅当 LLM 增量成立时加入 SkillOpt 式 validation gate。</span><small>交付：分层、可解释的增量证据</small></li>
+      </ol>
+    </section>
+
+    <section class="final-call">
+      <span>研究结论</span>
+      <h2>数据底座是确定性资产，LLM 切入点是待验证假设。</h2>
+      <p>当前应将公开论文数据与传统求解器基准接入统一 verifier；首篇论文聚焦冲突诊断或模型修订，应依据正式矩阵与预注册 pilot 的结果确定。</p>
+      <a href="index.html">返回数据资源 <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer>
+    <span>研究路线建议版本：2026-07-20</span>
+    <span>优先复现、严格对照、按证据升级</span>
+  </footer>
+</body>
+</html>

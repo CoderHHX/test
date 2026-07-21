@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>大语言模型辅助的电力系统优化｜数据资源、基准与实验框架</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span>L4P</span>
+      <strong>LLM4PowerOpt</strong>
+    </a>
+    <nav class="header-nav" aria-label="页面导航">
+      <a class="is-active" href="index.html">数据资源</a>
+      <a href="#examples">样例解析</a>
+      <a href="research.html">研究设计</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="survey-intro">
+      <div class="section-number">数据资源调研与基准构建 / 2026-07-20</div>
+      <div class="survey-intro-grid">
+        <div>
+          <h1>大语言模型辅助的电力系统优化：数据资源、基准与实验框架</h1>
+          <p>面向大语言模型参与的优化建模、方案生成、工具调用与求解验证，系统梳理可用于方法复现、基线比较、物理验证及新任务构建的公开电力系统数据与代码资源。</p>
+        </div>
+        <dl class="survey-stats">
+          <div><dt>3</dt><dd>类数据</dd></div>
+          <div><dt>8</dt><dd>项已下载资产</dd></div>
+          <div><dt>4</dt><dd>种真实数据形态</dd></div>
+        </dl>
+      </div>
+      <div class="category-map" aria-label="三类数据定义">
+        <a href="#category-1" style="--category:#216e5b"><b>1</b><span><strong>大语言模型参与的电力系统优化</strong><small>方法、数据与复现基准</small></span></a>
+        <a href="#category-2" style="--category:#356f9a"><b>2</b><span><strong>经典电力系统优化基准</strong><small>模型、算例与数值求解基座</small></span></a>
+        <a href="#category-3" style="--category:#735b98"><b>3</b><span><strong>电力系统大语言模型资源</strong><small>领域知识与多模态评测</small></span></a>
+      </div>
+    </section>
+
+    <section class="survey-category category-one" id="category-1">
+      <header class="category-header">
+        <div class="category-index">01</div>
+        <div>
+          <span>直接相关资源 / 优先复现</span>
+          <h2>大语言模型参与的电力系统优化方法与基准</h2>
+          <p>覆盖自动优化建模、直接方案预测、工具增强推理和求解器在环验证等研究范式，并重点核查数据完整性、代码可复现性与许可状态。</p>
+        </div>
+        <strong class="category-count">4 项</strong>
+      </header>
+
+      <div class="current-assets llm-assets">
+        <span>本地复现状态</span>
+        <strong>3 项大语言模型电力优化代码与数据资产</strong>
+        <p>ProOPF 含 124 条 benchmark 与 20 条 few-shot；SafePowerGraph 提供图数据生成和加载代码；LLM_PowerSystems 含经济调度、EV 调度小型样例。</p>
+        <a href="#examples">查看 ProOPF 样例</a>
+      </div>
+
+      <div class="solver-definition">
+        <strong>如何理解 Solver</strong><span><b>执行工具</b>负责读取数据和构建数学模型；<b>数值 Solver</b>负责真正计算答案。MIPS 是 MATPOWER 内置的连续非线性优化求解器，并不是“混合整数规划（MIP）”的缩写；Gurobi、COPT、CPLEX、HiGHS 等则可用于线性或混合整数优化。下表仅将论文或公开代码能够核实的后端标为“实际使用”。</span>
+      </div>
+
+      <div class="resource-table six-column llm-method-table" role="table" aria-label="大语言模型参与的电力系统优化数据与方法">
+        <div class="resource-head" role="row">
+          <span>数据 / 论文</span><span>主要任务</span><span>数据形式</span><span>LLM 职责</span><span>实际 Solver / 后端</span><span>开放状态</span>
+        </div>
+        <article class="resource-row featured" role="row">
+          <div class="resource-name">
+            <b>ProOPF-D / ProOPF-B</b>
+            <small>ProOPF · ICML 2026 · <em class="cite-count">引用 2</em></small>
+            <div class="resource-links"><a href="https://arxiv.org/abs/2602.03070" target="_blank" rel="noreferrer">论文</a><a href="https://github.com/shenchao188/ProOPF-Benchamrk-Dataset" target="_blank" rel="noreferrer">仓库</a></div>
+          </div>
+          <div><span class="method-tag">自动优化建模</span><strong>自然语言修改 OPF 模型</strong><p>参数调整、增加约束、改变目标函数，分 4 个难度等级。</p></div>
+          <div><code>JSONL</code><p>自然语言请求、标准 MATLAB/MATPOWER 代码、目标值与执行结果。论文报告 12K 训练实例和 121 个专家测试例。</p></div>
+          <div><p>生成 MATLAB/MATPOWER 模型代码，并按自然语言要求修改参数、约束或目标函数。</p></div>
+          <div class="solver-cell"><span class="solver-status actual">公开代码实际使用</span><strong>MIPS</strong><p>MATPOWER 内置的连续非线性优化求解器，用于计算 AC-OPF；不是混合整数规划中的 MIP。公开测试代码默认 <code>solver=MIPS</code>。</p></div>
+          <div><span class="status open">已下载</span><p>当前仓库实含 124 条 benchmark 与 20 条 few-shot；论文报告 121 个专家测试例。仓库未声明许可证，先限学术核查。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name">
+            <b>PowerGraph-LLM</b>
+            <small>IEEE TPWRS · 2025 · <em class="cite-count">引用 18</em></small>
+            <div class="resource-links"><a href="https://arxiv.org/abs/2501.07639" target="_blank" rel="noreferrer">论文</a><a href="https://github.com/yamizi/SafePowerGraph" target="_blank" rel="noreferrer">生成管线</a></div>
+          </div>
+          <div><span class="method-tag">直接方案预测</span><strong>LLM 预测最优潮流结果</strong><p>比较图结构与表格表示、上下文学习和微调效果。</p></div>
+          <div><code>Graph + Table</code><p>论文以 IEEE 9 母线负荷扰动为主，并测试到 IEEE 30 母线；输入为拓扑和数值特征。</p></div>
+          <div><p>接收图或表格形式的电网表示，直接预测 OPF 输出；数值工具仅用于生成监督标签与评价基准。</p></div>
+          <div class="solver-cell"><span class="solver-status unspecified">论文未固定单一 Solver</span><strong>多后端标签生成</strong><p>公开管线支持 pandapower OPF、PowerModels OPF 与 MATPOWER <code>runopf</code>；具体数值内核随配置变化。</p></div>
+          <div><span class="status reproducible">生成代码已下载</span><p>SafePowerGraph 代码与数据加载器已落盘；批量图数据按需由 Hugging Face / PyG 接口生成或获取。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name">
+            <b>LLM_PowerSystems</b>
+            <small>Large Foundation Models for Power Systems · PESGM 2024 · <em class="cite-count">引用 68</em></small>
+            <div class="resource-links"><a href="https://arxiv.org/abs/2312.07044" target="_blank" rel="noreferrer">论文</a><a href="https://github.com/chennnnnyize/LLM_PowerSystems" target="_blank" rel="noreferrer">仓库</a></div>
+          </div>
+          <div><span class="method-tag">候选解生成</span><strong>经济调度与 EV 调度</strong><p>验证通用 LLM 能否迭代提出满足约束的候选解。</p></div>
+          <div><code>Python</code><p>小型算例参数、prompt 与实验脚本嵌入代码，未提供独立的大规模数据包。</p></div>
+          <div><p>GPT-4 迭代生成经济调度候选值；在 EV 场景中负责把用户需求映射到既有 MPC 控制程序。</p></div>
+          <div class="solver-cell"><span class="solver-status actual">论文 / 代码实际使用</span><strong>Gurobi + ECOS</strong><p>Gurobi：5 机组经济调度对照；ECOS：CVXPY 中的 EV-MPC 数值后端。</p></div>
+          <div><span class="status open">代码已下载</span><p>Apache-2.0，小型样例随 Python 代码落盘。适合做最小复现和管线冒烟测试，不作为主数据集。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name">
+            <b>NL to Solver-Ready Power Optimization</b>
+            <small>预印本 · 2025 · <em class="cite-count">引用 4</em></small>
+            <div class="resource-links"><a href="https://arxiv.org/abs/2508.08147" target="_blank" rel="noreferrer">论文</a></div>
+          </div>
+          <div><span class="method-tag">求解器在环建模</span><strong>自然语言生成 UC 模型</strong><p>从需求描述构造热电机组组合模型，并交给求解器执行。</p></div>
+          <div><code>Synthetic UC</code><p>论文描述 3/10/30/60 机组的 24 小时样例，以及 50–100 机组的更长时域任务。</p></div>
+          <div><p>把自然语言场景转换为类型化 UC 模型和可执行代码，并根据校验及求解反馈进行迭代修订。</p></div>
+          <div class="solver-cell"><span class="solver-status actual">论文实际使用</span><strong>Gurobi</strong><p>代码生成目标为 Gurobi Python API；UC MILP 由 Gurobi 执行。</p></div>
+          <div><span class="status closed">未找到公开数据</span><p>保留为方法对标与任务设计参考，暂不计入可下载资产。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="survey-category category-two" id="category-2">
+      <header class="category-header">
+        <div class="category-index">02</div>
+        <div>
+          <span>数值优化基座 / 核心 benchmark</span>
+          <h2>经典电力系统优化数据与求解基准</h2>
+          <p>该类资源具有明确的物理模型、标准化算例和广泛的算法使用基础，为大语言模型辅助优化研究提供网架、机组、负荷、时序及安全约束等核心输入。</p>
+        </div>
+        <strong class="category-count">5 项</strong>
+      </header>
+
+      <div class="current-assets">
+        <span>本地基准资产</span>
+        <strong>5 项求解器基准与配套代码</strong>
+        <p>包含 MATPOWER 79 个算例、PGLib-OPF 66 个算例、PGLib-UC 56 个 JSON、UnitCommitment 26 个原始实例和完整 RTS-GMLC 时序包。</p>
+        <a href="#examples">查看数据样例</a>
+      </div>
+
+      <div class="solver-definition solver-definition-blue">
+        <strong>重要区分</strong><span>本节条目主要是<b>数据集或建模工具</b>，并非 Solver。数据通常不绑定单一数值后端；“数值 Solver”列分别列出参考实现、当前项目实际使用或典型可选后端。</span>
+      </div>
+
+      <div class="resource-table six-column benchmark-solver-table" role="table" aria-label="求解器使用的公开电网数据">
+        <div class="resource-head" role="row">
+          <span>数据 / 项目</span><span>主要任务</span><span>数据形式</span><span>建模 / 执行工具</span><span>数值 Solver</span><span>对我们的用途</span>
+        </div>
+        <article class="resource-row" role="row">
+          <div class="resource-name"><b>MATPOWER Cases</b><small>经典静态网架库</small><div class="resource-links"><a href="https://github.com/MATPOWER/matpower" target="_blank" rel="noreferrer">官方仓库</a></div></div>
+          <div><strong>潮流、AC/DC OPF</strong><p>IEEE、PEGASE、Polish、RTE 等测试系统的基础来源。</p></div>
+          <div><code>.m</code><p>母线、机组、支路、成本矩阵；单个文件就是一个静态电网算例。</p></div>
+          <div class="tool-cell"><strong>MATPOWER</strong><p>亦可由 PowerModels.jl、pandapower 读取或转换。</p></div>
+          <div class="solver-cell"><span class="solver-status compatible">数据不绑定 Solver</span><strong>MIPS / IPOPT</strong><p>二者都是连续非线性优化求解器：MATPOWER AC-OPF 常用 MIPS，PowerModels AC-OPF 常用 IPOPT。DC-OPF 可使用 HiGHS、Gurobi、COPT 等。</p></div>
+          <div><span class="status open">仓库与 79 个算例已下载</span><p>适合做 OPF 任务基座，也是 ProOPF 的底层算例来源。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name"><b>PGLib-OPF</b><small>标准 AC-OPF benchmark · <em class="cite-count">引用 345</em></small><div class="resource-links"><a href="https://arxiv.org/abs/1908.02788" target="_blank" rel="noreferrer">数据论文</a><a href="https://github.com/power-grid-lib/pglib-opf" target="_blank" rel="noreferrer">官方仓库</a></div></div>
+          <div><strong>标准化 AC/DC OPF</strong><p>比较不同 OPF 算法、松弛方法和大规模求解性能。</p></div>
+          <div><code>MATPOWER .m</code><p>统一模型定义，并提供不同负载、角差与困难变体。</p></div>
+          <div class="tool-cell"><strong>MATPOWER / PowerModels.jl</strong><p>负责读取算例、构造 AC/DC-OPF 模型。</p></div>
+          <div class="solver-cell"><span class="solver-status compatible">按模型类型选择</span><strong>IPOPT / MIPS</strong><p>二者用于连续非线性 AC-OPF；其中 MIPS 内置于 MATPOWER。线性 DC-OPF 可使用 HiGHS、Gurobi、COPT。</p></div>
+          <div><span class="status open">66 个算例已下载</span><p>适合建立可复现的 OPF 主基线和跨规模测试。</p></div>
+        </article>
+
+        <article class="resource-row featured-blue" role="row">
+          <div class="resource-name"><b>UnitCommitment.jl Benchmarks</b><small>UC / SCUC 多时段算例 · Zenodo 10.5281/zenodo.4269874</small><div class="resource-links"><a href="https://github.com/ANL-CEEESA/UnitCommitment.jl" target="_blank" rel="noreferrer">官方仓库</a><a href="https://anl-ceeesa.github.io/UnitCommitment.jl/0.3/format/" target="_blank" rel="noreferrer">格式说明</a><a href="https://doi.org/10.5281/zenodo.4269874" target="_blank" rel="noreferrer">引用记录</a></div></div>
+          <div><strong>机组组合与安全约束机组组合</strong><p>决定哪些机组开机、每小时发多少电，并满足备用和线路安全。</p></div>
+          <div><code>JSON.GZ</code><p>逐时负荷、机组启停与成本、线路、备用、N-1 故障和来源信息。</p></div>
+          <div class="tool-cell"><strong>UnitCommitment.jl + JuMP</strong><p>负责 SCUC 建模、数据读取与求解器接口。</p></div>
+          <div class="solver-cell"><span class="solver-status current">本项目当前实际使用</span><strong>HiGHS</strong><p>当前版本：HiGHS.jl 1.24.1 / native 1.15.1；Gurobi、COPT、CPLEX 尚未接入本项目。</p></div>
+          <div><span class="status open">代码 + 26 个实例已下载</span><p>该基准已用于多项 UC/SCUC 研究，当前亦作为冲突诊断与证书验证的核心数据底座。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name"><b>RTS-GMLC</b><small>时序运行测试系统 · <em class="cite-count">引用 240</em></small><div class="resource-links"><a href="https://github.com/GridMod/RTS-GMLC" target="_blank" rel="noreferrer">官方仓库</a><a href="https://doi.org/10.1109/TPWRS.2019.2925557" target="_blank" rel="noreferrer">数据论文</a></div></div>
+          <div><strong>UC、SCUC、规划与可靠性</strong><p>73 母线系统，重点补足负荷、风电、光伏等时间序列。</p></div>
+          <div><code>CSV + MATPOWER</code><p>网架表、机组表、时序曲线、区域与备用等多张结构化表。</p></div>
+          <div class="tool-cell"><strong>PowerSystems.jl / PLEXOS</strong><p>亦可转换到 MATPOWER 或自建 UC/SCUC 模型。</p></div>
+          <div class="solver-cell"><span class="solver-status compatible">数据不绑定 Solver</span><strong>取决于下游模型</strong><p>UC/SCUC 通常使用 MIP Solver；OPF 则使用相应 LP/NLP 后端。RTS-GMLC 本身仅提供数据。</p></div>
+          <div><span class="status open">完整数据包已下载</span><p>提供独立数据血统与高分辨率时序；当前正在进行格式转换与准入验证。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name"><b>PGLib-UC</b><small>IEEE PES 标准 UC benchmark</small><div class="resource-links"><a href="https://github.com/power-grid-lib/pglib-uc" target="_blank" rel="noreferrer">官方仓库</a></div></div>
+          <div><strong>标准化 UC 基线</strong><p>比较机组组合算法、MIP 求解性能和不同规模的调度难度。</p></div>
+          <div><code>JSON</code><p>CA、FERC、RTS-GMLC 三个家族，共 56 个公开实例文件。</p></div>
+          <div class="tool-cell"><strong>EGRET / PSST</strong><p>官方仓库列出的开源参考实现；也可自行构建 Pyomo/JuMP 模型。</p></div>
+          <div class="solver-cell"><span class="solver-status compatible">数据不绑定 Solver</span><strong>MIP Solver</strong><p>可选择 Gurobi、CPLEX、COPT、SCIP 或 HiGHS；需由参考实现或建模层完成连接。</p></div>
+          <div><span class="status open">仓库与 56 个实例已下载</span><p>由 IEEE PES benchmark 工作组维护，适合作为 UC 求解器对照和外部数据来源。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="survey-category category-three" id="category-3">
+      <header class="category-header">
+        <div class="category-index">03</div>
+        <div>
+          <span>领域与多模态补充 / 选择性纳入</span>
+          <h2>电力系统大语言模型数据与评测资源</h2>
+          <p>该类资源主要覆盖电力知识、调度问答、拓扑图像与跨模态对齐，不替代数值优化基准，仅用于补充领域语义、解释生成和多模态能力评测。</p>
+        </div>
+        <strong class="category-count">3 项</strong>
+      </header>
+
+      <div class="resource-table" role="table" aria-label="LLM使用的其他电网数据">
+        <div class="resource-head" role="row">
+          <span>数据 / 论文</span><span>主要任务</span><span>数据形式</span><span>是否有求解器闭环</span><span>对我们的用途</span>
+        </div>
+        <article class="resource-row" role="row">
+          <div class="resource-name"><b>ElecBench</b><small>PESGM 2025 · <em class="cite-count">引用 31</em></small><div class="resource-links"><a href="https://arxiv.org/abs/2407.05365" target="_blank" rel="noreferrer">论文</a><a href="https://github.com/xiyuan-zhou/ElecBench-a-Power-Dispatch-Evaluation-Benchmark-for-Large-Language-Models" target="_blank" rel="noreferrer">仓库</a></div></div>
+          <div><strong>电力知识与调度问答评测</strong><p>覆盖监控、调度、黑启动等场景，评估事实性、安全性和表达。</p></div>
+          <div><code>JSONL / Text</code><p>题目、参考答案、评分维度和部分业务场景。</p></div>
+          <div><p>未将数值优化器设置为逐任务的最终 verifier。</p></div>
+          <div><span class="status partial">部分开放</span><p>可用于构造术语解释、诊断文本和人类可读输出，不用来评价最优解。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name"><b>GAIA</b><small>Scientific Reports · 2025 · <em class="cite-count">引用 70</em></small><div class="resource-links"><a href="https://www.nature.com/articles/s41598-025-91940-x" target="_blank" rel="noreferrer">论文</a></div></div>
+          <div><strong>电力调度领域模型微调</strong><p>电力知识问答与 IEEE 测试系统生成的调度问答。</p></div>
+          <div><code>Q&amp;A</code><p>论文报告约 16 万条微调问答，来源包括文本和仿真程序。</p></div>
+          <div><p>仿真程序用于生成监督数据，但未形成可审计的在线 solver-controller 闭环。</p></div>
+          <div><span class="status closed">需向作者申请</span><p>适合作为数据构造方法参考，现阶段不能当作公开可复现主数据。</p></div>
+        </article>
+
+        <article class="resource-row" role="row">
+          <div class="resource-name"><b>Multimodal Synthetic Power Grid</b><small>Energy Conversion and Economics · 2026 · <em class="cite-count">引用 0</em></small><div class="resource-links"><a href="https://doi.org/10.1049/enc2.70037" target="_blank" rel="noreferrer">论文</a><a href="https://huggingface.co/datasets/syllable604/Multimodal_synthetic_power_grid" target="_blank" rel="noreferrer">数据</a></div></div>
+          <div><strong>电网拓扑生成与可视化</strong><p>学习文字描述、网络拓扑、图像与稳态参数之间的关系。</p></div>
+          <div><code>Text + Image + Graph</code><p>100 套物理校验后的合成电网，含文本、图像、拓扑和稳态参数。</p></div>
+          <div><p>有潮流校验，但研究主线是 LLM/RAG 生成和跨模态表达。</p></div>
+          <div><span class="status open">可直接获取</span><p>适用于拓扑理解与跨模态对齐研究，当前不纳入第一阶段数值求解实验。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="asset-section" id="local-assets" aria-labelledby="asset-title">
+      <div class="section-heading">
+        <div>
+          <span>04 / 本地资产与可复现性</span>
+          <h2 id="asset-title">已获取代码、数据与版本清单</h2>
+          <p>清单由本地文件自动生成，记录代码版本、数据文件数量、存储规模与本地路径；第 3 类资源当前仅完成调研与可用性核验。</p>
+        </div>
+        <div class="asset-total" id="asset-total"><strong>--</strong><span>本地资产</span></div>
+      </div>
+      <div class="asset-inventory" id="asset-inventory" aria-live="polite"></div>
+    </section>
+
+    <section class="source-lab-section" id="examples" aria-labelledby="source-lab-title">
+      <div class="section-heading">
+        <div>
+          <span>05 / 多源异构数据解析</span>
+          <h2 id="source-lab-title">电网优化数据的统一结构解析与可视化</h2>
+          <p>统一呈现四类典型数据形态：自然语言到模型代码、MATPOWER 矩阵到网架拓扑、CSV 表格到时序曲线，以及 UC 字段到优化约束。</p>
+        </div>
+      </div>
+      <nav class="source-tabs" id="source-tabs" aria-label="选择数据样例"></nav>
+      <div class="source-visualizer" id="source-visualizer" aria-live="polite"></div>
+      <div class="uc-deep-dive" id="uc-detail" hidden>
+        <div class="uc-detail-heading">
+          <div>
+            <span>UnitCommitment 数据模式解析</span>
+            <h3 id="format-title">UC/SCUC 实例的字段语义与约束映射</h3>
+            <p>四个切换项对应 21 套已接入网架的来源家族，用于比较不同系统的数据结构与语义覆盖。</p>
+          </div>
+          <div class="dataset-switch" data-dataset-switch aria-label="选择数据家族"></div>
+        </div>
+        <div class="format-explorer">
+          <nav class="field-list" id="field-list" aria-label="JSON字段"></nav>
+          <div class="field-explanation">
+            <span id="field-key">Buses</span>
+            <h3 id="field-label">母线与负荷</h3>
+            <p id="field-description"></p>
+            <div class="reading-guide">
+              <span>一句话理解</span>
+              <strong id="plain-summary"></strong>
+              <ul id="plain-points"></ul>
+            </div>
+          </div>
+          <pre class="json-preview" aria-label="JSON数据片段"><code id="json-preview"></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="example-section" aria-labelledby="example-title">
+      <div class="section-heading">
+        <div>
+          <span>06 / 计算流程可视化</span>
+          <h2 id="example-title">大语言模型辅助优化建模与求解验证流程</h2>
+          <p>分别展示自然语言需求到可执行优化模型及求解器反馈的处理链，以及 UC/SCUC 逐时负荷、备用与网络状态的输入过程；本节用于流程说明，不作为实验性能结论。</p>
+        </div>
+        <div class="visual-controls">
+          <div class="viz-mode-switch" aria-label="选择可视化模式">
+            <button type="button" class="is-active" data-viz-mode="llm">LLM 辅助优化</button>
+            <button type="button" data-viz-mode="uc">UC 时序输入</button>
+          </div>
+          <div class="dataset-switch" id="uc-runner-switch" data-dataset-switch aria-label="选择运行样例" hidden></div>
+        </div>
+      </div>
+
+      <div class="llmopt-runner" id="llmopt-runner" aria-live="polite"></div>
+
+      <div class="runner" id="uc-runner" hidden>
+        <header class="runner-header">
+          <div><span id="runner-dataset">PEGASE</span><strong id="runner-example">case89pegase / 2017-01-01</strong></div>
+          <div class="runner-control">
+            <button id="play-button" type="button" aria-label="暂停播放"><span aria-hidden="true">Ⅱ</span><strong>暂停</strong></button>
+            <div><span>当前时刻</span><strong id="hour-label">第 1 小时</strong></div>
+          </div>
+        </header>
+        <div class="runner-body">
+          <section class="network-panel" aria-labelledby="network-title">
+            <div class="panel-title">
+              <div><span>网架样例</span><h3 id="network-title">网架结构与节点负荷</h3></div>
+              <div class="network-legend"><span><i class="load-dot"></i>负荷</span><span><i class="generator-dot"></i>机组</span></div>
+            </div>
+            <div class="network-canvas-wrap"><canvas id="network-canvas" role="img" aria-label="电网结构随负荷变化图"></canvas></div>
+            <p id="network-note"></p>
+          </section>
+          <section class="time-panel" aria-labelledby="time-title">
+            <div class="panel-title"><div><span>时序曲线</span><h3 id="time-title">全网逐时负荷与备用需求</h3></div></div>
+            <div class="metric-row">
+              <div><span>当前负荷</span><strong id="metric-load">0 MW</strong></div>
+              <div><span>备用需求</span><strong id="metric-reserve">0 MW</strong></div>
+              <div><span>机组容量上限</span><strong id="metric-capacity">0 MW</strong></div>
+            </div>
+            <div class="chart-wrap"><canvas id="load-chart" role="img" aria-label="逐小时总负荷曲线"></canvas></div>
+            <label class="time-slider"><span>1</span><input id="hour-slider" type="range" min="0" max="35" value="0" step="1" aria-label="选择小时"><span id="horizon-label">36小时</span></label>
+            <div class="system-counts" id="system-counts"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack-section" aria-labelledby="stack-title">
+      <div class="section-heading">
+        <div>
+          <span>07 / 系统实现状态</span>
+          <h2 id="stack-title">当前技术栈、已实现能力与实验边界</h2>
+          <p>组件状态依据当前代码与 Julia Manifest 核验；仅将已完成端到端验证的功能计入实现范围，潜在兼容性与外部代码下载不计为系统集成。</p>
+        </div>
+      </div>
+      <div class="stack-flow" id="stack-flow"></div>
+      <div class="boundary-grid">
+        <div class="boundary-done"><span>已经完成</span><strong>UC / SCUC 数据读取、HiGHS 求解、冲突提取、语义约束 ID、独立 PTDF/N-1 复验</strong></div>
+        <div class="boundary-pending"><span>尚未接入</span><strong>LLM controller、COPT、CPLEX、Gurobi，以及其他求解器的横向对照</strong></div>
+      </div>
+    </section>
+
+    <section class="next-page-band">
+      <div><span>研究设计</span><h2>从数据基座到大语言模型辅助的电力系统优化</h2><p>研究设计页进一步给出统一数据模式、基线复现顺序、候选方法方向与预注册 GO/NO-GO 判据。</p></div>
+      <a href="research.html">查看研究设计 <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer>
+    <span>公开状态与论文信息核验日期：2026-07-20</span>
+    <span>引用量为 Semantic Scholar 同日快照；“论文使用”不等于“数据已开放”</span>
+  </footer>
+
+  <script src="catalog-data.js"></script>
+  <script src="catalog.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
