@@ -15,6 +15,7 @@
     </a>
     <nav class="header-nav" aria-label="页面导航">
       <a class="is-active" href="index.html">数据资源</a>
+      <a href="#scenarios">适用场景</a>
       <a href="#examples">样例解析</a>
       <a href="research.html">研究设计</a>
     </nav>
@@ -235,10 +236,119 @@
       </div>
     </section>
 
+    <section class="scenario-section" id="scenarios" aria-labelledby="scenario-title">
+      <div class="section-heading scenario-heading">
+        <div>
+          <span>04 / 适用场景与求解器边界</span>
+          <h2 id="scenario-title">虚拟电厂、负荷转供与源荷预测如何使用求解器</h2>
+          <p>三个场景都涉及计算，但求解器的位置不同：虚拟电厂和负荷转供需要从大量方案中做受约束决策；源荷预测主要负责产生未来输入，只有在一致性修正或连接下游调度时才进入优化闭环。</p>
+        </div>
+        <div class="scenario-rule">
+          <span>判断原则</span>
+          <strong>预测一个数，不一定需要优化求解器；从多种方案中选出满足安全与成本约束的方案，通常需要。</strong>
+        </div>
+      </div>
+
+      <div class="solver-kind-band" aria-label="三类计算工具的区别">
+        <div><span>模型训练</span><strong>机器学习优化器</strong><p>Adam、SGD 等，用来更新预测模型参数，不负责生成电网运行方案。</p></div>
+        <div><span>物理校验</span><strong>潮流计算工具</strong><p>OpenDSS、pandapower 等，用来计算电压和线路潮流，判断方案能否物理运行。</p></div>
+        <div><span>方案决策</span><strong>数学优化求解器</strong><p>HiGHS、Gurobi、COPT、CPLEX、IPOPT 等，从可行方案中选择成本或安全性更优的方案。</p></div>
+      </div>
+
+      <div class="scenario-grid">
+        <article class="scenario-card scenario-vpp">
+          <header>
+            <div class="scenario-number">01</div>
+            <div><span>Virtual Power Plant</span><h3>虚拟电厂</h3></div>
+            <strong class="scenario-level level-core">求解器是核心</strong>
+          </header>
+          <div class="scenario-flow" aria-label="虚拟电厂计算流程">
+            <span>预测、电价、设备状态</span><i>→</i><b>优化求解器</b><i>→</i><span>报价与设备计划</span><i>→</i><span>实时滚动修正</span>
+          </div>
+          <div class="scenario-boundary">
+            <div><span>通常不用求解器</span><p>设备监控、数据汇总、单纯预测风光或负荷。</p></div>
+            <div><span>需要求解器</span><p>日前报价、储能充放电、EV 调度、需求响应、备用与实时控制。</p></div>
+          </div>
+          <dl class="scenario-facts">
+            <div><dt>求解器决定</dt><dd>每台设备何时发电、充电、放电、移峰，以及市场申报多少电量。</dd></div>
+            <div><dt>关键约束</dt><dd>功率平衡、储能 SOC、设备上下限、用户舒适度、合同与备用要求。</dd></div>
+            <div><dt>常见模型</dt><dd>LP / MILP、随机优化、鲁棒优化、滚动时域 MPC。</dd></div>
+            <div><dt>与当前能力</dt><dd>可复用 RTS-GMLC 时序、UC 约束和 HiGHS；还需补储能、EV 与市场规则。</dd></div>
+          </dl>
+          <footer class="scenario-paper">
+            <span>代表性研究</span>
+            <a href="https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/iet-gtd.2018.5834" target="_blank" rel="noreferrer">Stochastic optimisation with risk aversion for virtual power plant operations: a rolling horizon control</a>
+            <small>IET Generation, Transmission &amp; Distribution · 2019 · <em>OpenAlex 引用 28</em></small>
+          </footer>
+        </article>
+
+        <article class="scenario-card scenario-transfer">
+          <header>
+            <div class="scenario-number">02</div>
+            <div><span>Load Transfer</span><h3>负荷转供</h3></div>
+            <strong class="scenario-level level-verified">优化 + 物理复验</strong>
+          </header>
+          <div class="scenario-flow" aria-label="负荷转供计算流程">
+            <span>故障、拓扑、负荷</span><i>→</i><span>开关候选动作</span><i>→</i><b>优化求解器</b><i>→</i><span>潮流安全复验</span>
+          </div>
+          <div class="scenario-boundary">
+            <div><span>通常不用求解器</span><p>查询固定转供预案、人工按规则操作，或只对既定方案做潮流计算。</p></div>
+            <div><span>需要求解器</span><p>自动选择开关组合、最小停电范围、最少操作次数和重要负荷优先恢复。</p></div>
+          </div>
+          <dl class="scenario-facts">
+            <div><dt>求解器决定</dt><dd>哪些开关断开或闭合、多少负荷转移、是否切负荷及分布式电源如何支撑。</dd></div>
+            <div><dt>关键约束</dt><dd>辐射状拓扑、线路容量、电压范围、功率平衡、N-1 与负荷优先级。</dd></div>
+            <div><dt>常见模型</dt><dd>MILP、MISOCP、MINLP，并由三相潮流工具复验。</dd></div>
+            <div><dt>与当前能力</dt><dd>需新增配电网、联络开关和三相潮流 verifier；现有输电 PTDF 不能直接替代。</dd></div>
+          </dl>
+          <footer class="scenario-paper">
+            <span>代表性研究</span>
+            <a href="https://www.osti.gov/pages/biblio/1507794" target="_blank" rel="noreferrer">Toward a MILP Modeling Framework for Distribution System Restoration</a>
+            <small>IEEE Transactions on Power Systems · 2019 · <em>OpenAlex 引用 140</em></small>
+          </footer>
+        </article>
+
+        <article class="scenario-card scenario-forecast">
+          <header>
+            <div class="scenario-number">03</div>
+            <div><span>Source–Load Forecasting</span><h3>源荷预测</h3></div>
+            <strong class="scenario-level level-conditional">求解器按需使用</strong>
+          </header>
+          <div class="scenario-flow" aria-label="源荷预测计算流程">
+            <span>历史数据与天气</span><i>→</i><span>预测模型</span><i>→</i><span>预测结果</span><i>→</i><b class="optional-solver">可选：优化求解器<small>一致性修正 / 下游调度</small></b>
+          </div>
+          <div class="scenario-boundary">
+            <div><span>纯预测：不用求解器</span><p>流程到“预测结果”即结束，直接输出未来负荷、风电或光伏的点预测、区间预测和概率分布。</p></div>
+            <div><span>决策衔接：按需使用求解器</span><p>只有做区域/全网预测一致性修正（QP），或将预测接入 UC、VPP、转供等调度任务时才调用。</p></div>
+          </div>
+          <dl class="scenario-facts">
+            <div><dt>求解器决定</dt><dd>修正不一致预测，或把预测转成机组启停、经济调度与储能计划。</dd></div>
+            <div><dt>关键约束</dt><dd>分区加总一致、合理上下界，以及下游调度中的设备与网络约束。</dd></div>
+            <div><dt>常见模型</dt><dd>预测修正常用 QP；下游决策使用 LP / MILP；可扩展到 Decision-Focused Learning。</dd></div>
+            <div><dt>与当前能力</dt><dd>RTS-GMLC 已含负荷、风电、光伏时序，是三者中接入现有数据基座最快的场景。</dd></div>
+          </dl>
+          <footer class="scenario-paper">
+            <span>代表性研究</span>
+            <a href="https://doi.org/10.1109/TPWRS.2018.2857628" target="_blank" rel="noreferrer">Using Quadratic Programming to Optimally Adjust Hierarchical Load Forecasting</a>
+            <small>IEEE Transactions on Power Systems · 2018 · <em>OpenAlex 引用 6</em></small>
+          </footer>
+        </article>
+      </div>
+
+      <div class="scenario-roadmap">
+        <div><span>与当前项目的衔接顺序</span><strong>数据复用难度与业务闭环强度并不相同</strong></div>
+        <ol>
+          <li><b>1</b><span><strong>最快接入：源荷预测 → UC/SCUC</strong><small>直接复用 RTS-GMLC，以最终调度成本评价预测，而不只看平均绝对误差（MAE）。</small></span></li>
+          <li><b>2</b><span><strong>完整闭环：虚拟电厂调度</strong><small>在现有调度内核上增加储能、柔性负荷和市场报价。</small></span></li>
+          <li><b>3</b><span><strong>物理安全约束最强：负荷转供</strong><small>单独建设配电网开关模型与三相潮流 verifier，工程投入最大。</small></span></li>
+        </ol>
+      </div>
+    </section>
+
     <section class="asset-section" id="local-assets" aria-labelledby="asset-title">
       <div class="section-heading">
         <div>
-          <span>04 / 本地资产与可复现性</span>
+          <span>05 / 本地资产与可复现性</span>
           <h2 id="asset-title">已获取代码、数据与版本清单</h2>
           <p>清单由本地文件自动生成，记录代码版本、数据文件数量、存储规模与本地路径；第 3 类资源当前仅完成调研与可用性核验。</p>
         </div>
@@ -250,7 +360,7 @@
     <section class="source-lab-section" id="examples" aria-labelledby="source-lab-title">
       <div class="section-heading">
         <div>
-          <span>05 / 多源异构数据解析</span>
+          <span>06 / 多源异构数据解析</span>
           <h2 id="source-lab-title">电网优化数据的统一结构解析与可视化</h2>
           <p>统一呈现四类典型数据形态：自然语言到模型代码、MATPOWER 矩阵到网架拓扑、CSV 表格到时序曲线，以及 UC 字段到优化约束。</p>
         </div>
@@ -286,7 +396,7 @@
     <section class="example-section" aria-labelledby="example-title">
       <div class="section-heading">
         <div>
-          <span>06 / 计算流程可视化</span>
+          <span>07 / 计算流程可视化</span>
           <h2 id="example-title">大语言模型辅助优化建模与求解验证流程</h2>
           <p>分别展示自然语言需求到可执行优化模型及求解器反馈的处理链，以及 UC/SCUC 逐时负荷、备用与网络状态的输入过程；本节用于流程说明，不作为实验性能结论。</p>
         </div>
@@ -355,8 +465,8 @@
   </main>
 
   <footer>
-    <span>公开状态与论文信息核验日期：2026-07-20</span>
-    <span>引用量为 Semantic Scholar 同日快照；“论文使用”不等于“数据已开放”</span>
+    <span>数据资源核验：2026-07-20；适用场景论文核验：2026-07-22</span>
+    <span>引用量：数据资源采用 Semantic Scholar 2026-07-20 快照；适用场景采用 OpenAlex 2026-07-22 快照</span>
   </footer>
 
   <script src="catalog-data.js"></script>
